@@ -1,0 +1,81 @@
+class Linkedlist{
+    Node head;
+    class Node{
+         int data;
+         Node next;
+           Node(int data){
+               this.data=data;
+               this.next=null;
+           }
+     }
+     public void addNode(int data){
+        Node newNode =new Node(data);
+        if(head==null){
+            head=newNode;
+        }
+        else{
+            newNode.next=head;
+            head=newNode;
+        }
+    }
+   public void sortList()
+    {
+       int count[] = {0, 0, 0}; 
+       Node temp = head;
+       while (temp!= null) 
+       {
+            count[temp.data]++;
+            temp = temp.next;
+       }
+       int i = 0;
+       temp = head;
+        while (temp!= null) 
+        {
+            if (count[i] == 0)
+                i++;
+            else
+            {
+               temp.data= i;
+               --count[i];
+               temp = temp.next;
+            }
+         }
+      }                      
+  public void printList(){
+        if(head==null){
+           System.out.println("the list is empty");
+           return;
+        }
+        Node temp= head;
+        while(temp!=null){
+            System.out.print(temp.data +"-->");
+            temp=temp.next;
+        }
+        System.out.println("NULL");
+    }
+ 
+}
+
+ public class Main
+{
+	public static void main(String[] args) {
+	Linkedlist list=new Linkedlist();
+    list.addNode(1);
+    list.addNode(1);
+    list.addNode(2);
+    list.addNode(0);
+    list.addNode(2);
+    list.addNode(1);
+    list.addNode(0);
+    list.addNode(0);
+    list.addNode(2);
+    
+      System.out.println("List before sorting");
+        list.printList();
+         
+        list.sortList();
+ 
+        System.out.println("List after sorting");
+        list.printList();
+	}
+}

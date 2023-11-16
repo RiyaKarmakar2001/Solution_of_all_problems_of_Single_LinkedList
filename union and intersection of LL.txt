@@ -1,0 +1,111 @@
+package riya.com;
+
+import java.util.HashSet;
+import java.util.Scanner;
+
+public class LL {
+  Node head;
+	public class Node{
+		int data;
+		Node next;
+		Node(int data){
+			this.data=data;
+			this.next=null;
+		}
+	}
+	
+	public void push(int data) {
+		Node newNode= new Node(data);
+		if(head==null) {
+			head=newNode;
+			return;
+		}
+		newNode.next=head;
+		head=newNode;
+	}
+	public LL getIntersection(Node head1,Node head2) {
+		HashSet<Integer>hset=new HashSet<>();
+		Node n1=head1;
+		Node n2=head2;
+		LL result=new LL();
+		while(n1!=null) {
+			hset.add(n1.data);
+			n1=n1.next;
+		}
+		while(n2!=null) {
+			if(hset.contains(n2.data)) {
+			  result.push(n2.data);
+			}
+			n2=n2.next;
+		}
+		return result;
+	}
+	public LL getUnion(Node head1,Node head2) {
+		HashSet<Integer>hset=new HashSet<>();
+		Node n1=head1;
+		Node n2=head2;
+		LL result=new LL();
+		while(n1!=null) {
+			hset.add(n1.data);
+			n1=n1.next;
+		}
+		while(n2!=null) {
+			hset.add(n2.data);
+			n2=n2.next;
+		}
+		for(Integer element:hset) {
+			result.push(element);
+		}
+		return result;
+	}
+	
+	public void printList(){
+        if(head==null){
+           System.out.println("the list is empty");
+           return;
+        }
+        Node temp= head;
+        while(temp!=null){
+            System.out.print(temp.data +"-->");
+            temp=temp.next;
+        }
+        System.out.println("NULL");
+    }
+	
+	public static void main(String[] args) {
+		Scanner sc=new Scanner(System.in);
+		
+		LL ll=new LL();
+		LL l2=new LL();
+		LL union=new LL();
+		LL intersection=new LL();
+		System.out.println("enter the elements of first list");	
+	    ll.push(sc.nextInt());
+		ll.push(sc.nextInt());
+		ll.push(sc.nextInt());
+		ll.push(sc.nextInt());
+		System.out.println("enter the elements of second list");
+		l2.push(sc.nextInt());
+		l2.push(sc.nextInt());
+		l2.push(sc.nextInt());
+		l2.push(sc.nextInt());
+		System.out.println("the union list will be");
+		union=union.getUnion(ll.head,l2.head);
+		union.printList();
+		System.out.println("the intersected list will be");
+		intersection=intersection.getIntersection(ll.head, l2.head);
+		intersection.printList();
+		
+		
+	}
+}
+output:
+enter the elements of first list
+1 2 3 4
+enter the elements of second list
+ 3 4 5 6
+the union list will be
+6-->5-->4-->3-->2-->1-->NULL
+the intersected list will be
+3-->4-->NULL
+

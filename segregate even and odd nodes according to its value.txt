@@ -1,0 +1,86 @@
+class Linkedlist{
+   Node head;
+   class Node{
+        int data;
+        Node next;
+        Node(int data){
+            this.data=data;
+            this.next=null;
+        }
+    }
+ public void addNode(int data){
+        Node newNode= new Node(data);
+        if(head==null){
+            head=newNode;
+        }
+        else{
+            newNode.next=head;
+            head=newNode;
+        }
+    }
+    public void printList(){
+        Node temp=head;
+        while(temp!=null){
+            System.out.print(temp.data +"-->");
+            temp=temp.next;
+        }
+        System.out.println("NULL");
+    }
+
+public void segregateEvenOddNodeByValue(){
+    Node evenStart=null;
+    Node oddStart=null;
+    Node evenEnd=null;
+    Node oddEnd=null;
+    Node temp=head;
+    while(temp!=null){
+        if(temp.data%2==0){
+            if(evenStart==null){
+                evenStart=temp;
+                evenEnd=evenStart;
+            }
+            else{
+                evenEnd.next=temp;
+                evenEnd=evenEnd.next;
+            }
+        }
+        else{
+            if(oddStart==null){
+                oddStart=temp;
+                oddEnd=oddStart;
+            }
+            else{
+                oddEnd.next=temp;
+                oddEnd=oddEnd.next;
+            }
+        }
+        temp=temp.next;
+    }
+    if(evenStart==null || oddStart==null){
+        return;
+    }
+    evenEnd.next=oddStart;
+    oddEnd.next=null;
+    head=evenStart;
+      }
+      
+}
+
+public class Main
+{
+	public static void main(String[] args) {
+	Linkedlist list=new Linkedlist();
+	list.addNode(17);
+	list.addNode(15);
+	list.addNode(8);
+	list.addNode(9);
+	list.addNode(6);
+	list.addNode(5);
+	list.addNode(2);
+	list.addNode(12);
+   list.segregateEvenOddNodeByValue();
+   list.printList();
+	   
+	}
+}
+

@@ -1,0 +1,74 @@
+class Linkedlist{
+   Node head;
+   class Node{
+        int data;
+        Node next;
+        Node(int data){
+            this.data=data;
+            this.next=null;
+        }
+    }
+    public Node removeNthFromEnd(int n){
+        if(head==null){
+            System.out.println("the removal is not possible");
+            return null;
+        }
+        if(head.next==null){
+            head=null;
+            return null;
+        }
+        
+        int size=0;
+        Node temp=head;
+        while(temp!=null){
+            temp=temp.next;
+            size++;
+        }
+        if(size==n){
+            head=head.next;
+            return head;
+        }
+        int position=size-n;
+        int i=1;
+        Node prev=head;
+        while(i<position){
+            prev=prev.next;
+            i++;
+        }
+        prev.next=prev.next.next;
+        return head;
+    }
+    public void addNode(int data){
+        Node newNode= new Node(data);
+        if(head==null){
+            head=newNode;
+        }
+        else{
+            newNode.next=head;
+            head=newNode;
+        }
+    }
+    public void printList(){
+        Node temp=head;
+        while(temp!=null){
+            System.out.print(temp.data +"-->");
+            temp=temp.next;
+        }
+        System.out.println("NULL");
+    }
+}
+
+public class Main
+{
+	public static void main(String[] args) {
+	Linkedlist list=new Linkedlist();
+	list.addNode(50);
+	list.addNode(40);
+	list.addNode(30);
+	list.addNode(20);
+	list.addNode(10);
+	list.removeNthFromEnd(3);
+	list.printList();
+	
+	}
+}

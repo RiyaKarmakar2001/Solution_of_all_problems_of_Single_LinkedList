@@ -1,0 +1,153 @@
+class LL{
+    Node head;
+    public class Node{
+        int data;
+        Node next;
+          Node(int data){
+              this.data=data;
+              this.next=null;
+          }
+                      }
+    public void addFirst(int data){
+       Node newNode =new Node(data);
+        if(head==null){
+           head =newNode;
+            return;
+        }
+        newNode.next=head;
+        head=newNode;
+    }                 
+    public void addLast(int data){
+        Node newNode=new Node(data);
+         if(head==null){
+          head=newNode;
+            return;
+        }
+        Node temp=head;
+        while(temp.next!=null){
+            temp=temp.next;
+        }
+        temp.next=newNode;
+    }
+    public void printList(){
+        if(head==null){
+           System.out.println("the list is empty");
+           return;
+        }
+        Node temp= head;
+        while(temp!=null){
+            System.out.print(temp.data +"-->");
+            temp=temp.next;
+        }
+        System.out.println("NULL");
+    }
+    public int getSize(){
+         Node temp= head;
+         int size=0;
+        while(temp!=null){
+            temp=temp.next;
+            size++;
+        }
+        return size;
+    }
+    public void insetAtRandom(int data,int pos){
+        Node newNode=new Node(data);
+        if(pos==0){
+            newNode.next=head;
+            head=newNode;
+            return;
+        }
+        int counter=0;
+        Node temp= head;
+        while(counter!=pos-1 && temp!=null){
+            temp=temp.next;
+            counter++;
+        }
+        if(temp==null){
+             temp.next=newNode;
+             return;
+       }
+       newNode.next=temp.next;
+       temp.next=newNode;
+    }
+    public void deleteFirst(){
+        if(head==null){
+             System.out.println("not possible for delete");
+             return;
+        }
+        head=head.next;
+    }
+      public void deleteLast(){
+           if(head==null){
+             System.out.println("not possible for delete");
+             return;
+        }
+        if(head.next==null){
+            head=null;
+            return;
+        }
+        Node secondLastNode=head;
+        Node lastNode=head.next;
+        while(lastNode.next!=null){
+            lastNode=lastNode.next;
+            secondLastNode=secondLastNode.next;
+      } 
+      secondLastNode.next=null;
+                      
+      }
+      public void deleteAtRandom(int pos){
+          if(pos==0){
+              head=head.next;
+              return;
+          }
+          if(head==null){
+             System.out.println("not possible for delete");
+             return;
+        }
+        if(head.next==null){
+            head=null;
+            return;
+        }
+          int counter =0;
+          Node temp=head;
+          while(counter!=pos-1 && temp!=null){
+              temp=temp.next;
+              counter++;
+          }
+           if(temp.next==null){
+             System.out.println("not possible for deletion");
+             return;
+        }
+          temp.next=temp.next.next;
+      }
+  }               
+              public class Main{
+                      
+    public static void main(String []args){
+        LL list = new LL();
+        list.addFirst(30);
+        list.addFirst(20);
+        list.addFirst(10);
+        list.printList();
+        list.addLast(40);
+        list.addLast(50);
+        list.addLast(60);
+        list.printList();
+        list.insetAtRandom(70,3);
+         list.printList();
+        System.out.println(list.getSize());
+       list.deleteLast();
+       list.deleteFirst();
+       list.printList();
+       System.out.println(list.getSize());
+       list.deleteAtRandom(0);
+       list.printList();
+       list.insetAtRandom(10,4);
+         list.printList();
+         list.deleteAtRandom(5);
+         System.out.println(list.getSize());
+    }            
+                      
+                      
+}
+

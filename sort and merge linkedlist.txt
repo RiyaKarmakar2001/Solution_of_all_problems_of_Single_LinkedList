@@ -1,0 +1,100 @@
+class Linkedlist{
+    Node head;
+    class Node{
+         int data;
+         Node next;
+           Node(int data){
+               this.data=data;
+               this.next=null;
+           }
+     }
+     public void getSortedList(){
+         Node temp=sortList(head);
+         while(temp.next!=null){
+             temp=temp.next;
+             System.out.print(temp.data +"-->");
+     }
+    
+     System.out.println("NULL");
+     }
+     
+    public void addNode(int data){
+        Node newNode =new Node(data);
+        if(head==null){
+            head=newNode;
+        }
+        else{
+            newNode.next=head;
+            head=newNode;
+        }
+    }
+   public Node sortList(Node head){
+       if(head==null || head.next==null){
+           return head;
+       }
+       Node demo=new Node(0);
+       
+       Node slow=head;
+       
+       Node fast=head;
+       Node temp=null;
+       while(fast!=null && fast.next!=null){
+           temp=slow;
+           slow=slow.next;
+           fast=fast.next.next;
+       }
+       temp.next=null;
+       
+       
+       Node firstHalf=sortList(demo.next);
+       Node secondHalf=sortList(slow);
+       
+       return mergeList(firstHalf,secondHalf);
+   }
+   public Node mergeList(Node firstHalf,Node secondHalf){
+       Node dummy=new Node(0);
+        
+       Node headNode=dummy;
+       while(firstHalf!=null && secondHalf!=null){
+           if(firstHalf.data<=secondHalf.data){
+               dummy.next=firstHalf;
+               firstHalf=firstHalf.next;
+           }
+           else{
+               dummy.next=secondHalf;
+               secondHalf=secondHalf.next;
+           }
+           dummy=dummy.next;
+       }
+       if(firstHalf==null){
+           dummy.next=secondHalf;
+           dummy=dummy.next;
+       }
+       else if(secondHalf==null){
+           dummy.next=firstHalf;
+           dummy=dummy.next;
+       }
+       return headNode.next;
+   }
+    
+   
+}
+public class Main
+{
+	public static void main(String[] args) {
+	Linkedlist list=new Linkedlist();
+    list.addNode(50);
+    list.addNode(10);
+    list.addNode(70);
+    list.addNode(80);
+    list.addNode(40);
+    list.addNode(30);
+    list.addNode(90);
+    list.addNode(60);
+    list.addNode(20);
+    list.getSortedList();
+	}
+}
+
+    
+    

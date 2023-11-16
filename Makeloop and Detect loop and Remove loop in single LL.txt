@@ -1,0 +1,119 @@
+class Linkedlist
+{
+   Node head;
+   class Node
+  {
+    int data;
+    Node next;
+      Node (int data)
+    {
+      this.data = data;
+      this.next = null;
+    }
+  }
+ public boolean hasLoop(){
+     if(head==null){
+         return false;
+     }
+     Node slow =head;
+     Node fast=head;
+     while(fast!=null &&fast.next!=null){
+         slow=slow.next;
+         fast=fast.next.next;
+         if(fast==slow){
+             return true;
+         }
+     }
+     return false;
+ }
+  public void addNode (int data)
+  {
+    Node newNode = new Node (data);
+    if (head == null)
+      {
+	head = newNode;
+      }
+    else
+      {
+	newNode.next = head;
+	head = newNode;
+      }
+  }
+  public Node makeLoop(int pos){
+     Node temp =head;
+     int count =1;
+     while(count<pos){
+         temp=temp.next;
+         count++;
+     }
+     Node loop=temp;
+     while(temp.next!=null){
+         temp=temp.next;
+     }
+     temp.next=loop;
+     return head;
+  }
+  public Node removeLoop(){
+     if(head==null|| head.next== null){
+         return head;
+     }
+     Node slow =head;
+     Node fast=head;
+      slow=slow.next;
+      fast=fast.next.next;
+     while(fast!=null && fast.next!=null){
+         if(fast==slow){
+             break;
+         }
+         slow=slow.next;
+         fast=fast.next.next;
+     }
+     if(slow==fast){
+         slow=head;
+         if(slow!=fast){
+             while(slow.next!=fast.next){
+                 slow=slow.next;
+                 fast=fast.next;
+             }
+             fast.next=null;
+         }
+         else{
+             while(fast.next!=slow){
+                 fast=fast.next;
+             }
+             fast.next=null;
+         }
+     }
+     return head;
+      }
+      
+  public void printList ()
+  {
+    Node temp = head;
+    while (temp!= null)
+      {
+	System.out.print (temp.data + "-->");
+	temp = temp.next;
+      }
+    System.out.println("NULL");
+  }
+
+}
+public class Main
+{
+  public static void main (String[]args)
+  {
+    Linkedlist list = new Linkedlist ();
+    list.addNode(50);
+    list.addNode(40);
+    list.addNode(30);
+    list.addNode(20);
+    list.addNode(10);
+    list.makeLoop(3);
+    System.out.println(list.hasLoop());
+    list.removeLoop();
+    System.out.println(list.hasLoop());
+    list.printList();
+  }
+}
+
